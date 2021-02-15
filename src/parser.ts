@@ -140,6 +140,8 @@ export function withCustomConfig(
   parserOpts: ParserOptions
 ): FileParser {
   const basePath = path.dirname(tsconfigPath);
+  const tsconfigName = path.basename(tsconfigPath);
+
   const { config, error } = ts.readConfigFile(tsconfigPath, filename =>
     fs.readFileSync(filename, 'utf8')
   );
@@ -155,7 +157,7 @@ export function withCustomConfig(
     ts.sys,
     basePath,
     {},
-    tsconfigPath
+    tsconfigName
   );
 
   if (errors && errors.length) {
